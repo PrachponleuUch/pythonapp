@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'src/**'
+      - "src/**"
 
 jobs:
   build:
@@ -21,4 +21,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: prachponleuuch/pythonapp:${GITHUB_SHA::6}
+          tags: prachponleuuch/pythonapp:${{ github.sha }}
