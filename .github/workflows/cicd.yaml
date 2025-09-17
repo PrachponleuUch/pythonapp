@@ -26,11 +26,27 @@ jobs:
         with:
           push: true
           tags: prachponleuuch/pythonapp:${{ env.SHORT_SHA }}
+    outputs:
+      commit_id: ${{ env.SHORT_SHA }}
   cd:
     needs: [ci]
     runs-on: self-hosted
     steps:
-      - name: Install ArgoCD
+      - uses: actions/checkout@v3
+
+      - name: Modify values.yaml
+        shell: bash
+        run: |
+          echo ${{ needs.ci.outputs.commit_id }}
+          pip install yq
+          yq -Yi '.image.tag = "${{ needs.ci.outputs.commit_id }}"' charts/pythonapp/values.yaml
+
+      - name: Commit and Push Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Update image tag to ${{ needs.ci.outputs.commit_id }}"
+
+      - name: Install ArgoCD CLI
         shell: bash
         run: |
           curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
