@@ -7,8 +7,8 @@ on:
       - "src/**"
 
 jobs:
-  build:
-    runs-on: self-hosted
+  ci:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set short SHA
@@ -26,3 +26,16 @@ jobs:
         with:
           push: true
           tags: prachponleuuch/pythonapp:${{ env.SHORT_SHA }}
+  cd:
+    needs: [ci]
+    runs-on: self-hosted
+    steps:
+      - name: ArgoCD App Sync
+        shell: bash
+        run: |
+          argocd login argocd-server.argocd \
+            --insecure \
+            --grpc-web \
+            --username admin \
+            --password ${{ secrets.ARGOCD_PASSWORD }}
+          argocd app sync pythonapp
