@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: prachponleuuch/pythonapp
   pullPolicy: IfNotPresent
-  tag: "cf0374"
+  tag: "93dfc9"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
