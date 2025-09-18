@@ -4,12 +4,13 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route('/api/v1/details', methods=['GET'])
-def details():
+@app.route('/api/v1/info', methods=['GET'])
+def info():
     return jsonify({
         'time': datetime.datetime.now().strftime("%H:%M:%S on %Y-%m-%d"),
         'hostname': socket.gethostname(),
-        'message': 'Hello, World!!!'
+        'message': 'Hello, World!!!',
+        'deployed_on': 'kubernetes'
         })
 
 @app.route('/api/v1/health', methods=['GET'])
