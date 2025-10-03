@@ -1,0 +1,12 @@
+kind: Component
+metadata:
+  name: pythonapp
+  description: Python App.
+  # Example for optional annotations
+  annotations:
+    github.com/project-slug: prachponleuuch/pythonapp
+  #   backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  owner: dev
+  lifecycle: experimental
